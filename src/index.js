@@ -17,7 +17,6 @@ class App extends Component {
     YTsearch({key: API_KEY, term: 'Lemon'}, (videos) => {
       this.setState({ videos });
       // this.setState({ videos: videos })
-      console.log(this.state.videos)
     });
 
   }
@@ -26,7 +25,6 @@ class App extends Component {
     YTsearch({key: API_KEY, term}, (videos) => {
       this.setState({ videos });
       // this.setState({ videos: videos })
-      console.log(this.state.videos)
     });
   }
 

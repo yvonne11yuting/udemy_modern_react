@@ -12,8 +12,7 @@ class SearchBar extends Component {
     render() { 
         return [
         <input key="1" value={this.state.term} onChange={(e)=> this.setState({term: e.target.value})} />,
-        <button key="2" onClick={() => this.props.searchTerm(this.state.term)}>Search</button>,
-        <div key="3">{this.state.term}</div>
+        <button key="2" onClick={() => this.props.searchTerm(this.state.term)}>Search</button>
         ]
     }
 }
