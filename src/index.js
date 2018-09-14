@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM  from 'react-dom';
 import YTsearch from 'youtube-api-search';
+import { debounce } from 'lodash';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
@@ -16,19 +17,13 @@ class App extends Component {
       selectedVideo: null
     }
 
-    YTsearch({key: API_KEY, term: 'Lemon'}, (videos) => {
-      this.setState({
-        videos,
-        selectedVideo: videos[0]
-      });
-      // this.setState({ videos: videos })
-    });
+    this.searchTerm('你不聽搖滾')
 
   }
 
   searchTerm(term) {
     YTsearch({key: API_KEY, term}, (videos) => {
-      this.setState({ videos });
+      this.setState({ videos, selectedVideo: videos[0] });
       // this.setState({ videos: videos })
     });
   }
@@ -36,9 +31,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar searchTerm={(keyword) => this.searchTerm(keyword) } />
+        <SearchBar searchTerm={debounce(term => this.searchTerm(term), 300)} />
         <VideoDetail video={this.state.selectedVideo}/>
-        <VideoList videos={this.state.videos} updateSelectedVideo={(selectedVideo)=> this.setState({ selectedVideo })}/>
+        <VideoList videos={this.state.videos} updateSelectedVideo={selectedVideo => this.setState({ selectedVideo })}/>
       </div>
     )
   }
